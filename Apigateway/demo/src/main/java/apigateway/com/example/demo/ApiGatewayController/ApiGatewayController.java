@@ -2,8 +2,7 @@ package apigateway.com.example.demo.ApiGatewayController;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import java.util.Base64;
 
@@ -42,6 +41,31 @@ public class ApiGatewayController {
             return ResponseEntity.ok(response.getBody());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error fetching products: " + e.getMessage());
+        }
+    }
+
+    @PostMapping("/create-product")
+    public ResponseEntity<?> createProduct(@RequestBody String productJson) {
+        try {
+            // Set up Basic Authentication headers
+            HttpHeaders headers = new HttpHeaders();
+            String auth = username + ":" + password;
+            String encodedAuth = Base64.getEncoder().encodeToString(auth.getBytes());
+            headers.set("Authorization", "Basic " + encodedAuth);
+            headers.setContentType(MediaType.APPLICATION_JSON);
+
+            // Make the POST request with authentication
+            HttpEntity<String> entity = new HttpEntity<>(productJson, headers);
+            ResponseEntity<String> response = restTemplate.exchange(
+                    productServiceUrl + "/products",
+                    HttpMethod.POST,
+                    entity,
+                    String.class
+            );
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(response.getBody());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating product: " + e.getMessage());
         }
     }
 }

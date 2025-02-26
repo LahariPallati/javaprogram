@@ -1,8 +1,11 @@
 package productservice.com.example.productservice.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class MobileRequestDTO {
     private String model;
     private String manufacturer;
+    @JsonProperty("manufactureYear")
     private int manufactureYear; // ✅ Ensure this matches JSON request field
 
     // Default constructor (needed for Jackson serialization)

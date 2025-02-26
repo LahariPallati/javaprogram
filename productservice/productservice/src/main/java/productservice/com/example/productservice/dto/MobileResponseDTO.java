@@ -3,13 +3,13 @@ public class MobileResponseDTO {
 
     private String model;
     private String manufacturer;
-    private int manufacturedYear;
+    private int manufactureYear;
 
     // Constructor
     public MobileResponseDTO(String model, String manufacturer, int manufacturedYear) {
         this.model = model;
         this.manufacturer = manufacturer;
-        this.manufacturedYear = manufacturedYear;
+        this.manufactureYear = manufacturedYear;
     }
 
     // Getters and Setters
@@ -29,11 +29,11 @@ public class MobileResponseDTO {
         this.manufacturer = manufacturer;
     }
 
-    public int getManufacturedYear() {
-        return manufacturedYear;
+    public int getManufactureYear() {
+        return manufactureYear;
     }
 
-    public void setManufacturedYear(int manufacturedYear) {
-        this.manufacturedYear = manufacturedYear;
+    public void setManufactureYear(int manufacturedYear) {
+        this.manufactureYear = manufacturedYear;
     }
 }
